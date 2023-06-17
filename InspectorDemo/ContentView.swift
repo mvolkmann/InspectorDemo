@@ -1,21 +1,41 @@
-//
-//  ContentView.swift
-//  InspectorDemo
-//
-//  Created by Mark Volkmann on 6/16/23.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showingInspector = false
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                Text("Main Content Goes Here!")
+                    .font(.largeTitle)
+            }
+            .padding()
+            .toolbar {
+                Spacer()
+                Button {
+                    showingInspector.toggle()
+                } label: {
+                    Label("Toggle Inspector", systemImage: "info.circle")
+                }
+            }
+            .inspector(isPresented: $showingInspector) {
+                Inspector()
+                    .ignoresSafeArea(edges: [.bottom])
+                    .presentationDetents([.medium])
+            }
         }
-        .padding()
+    }
+}
+
+struct Inspector: View {
+    var body: some View {
+        ZStack {
+            Color.yellow.opacity(0.2)
+            VStack {
+                Text("My Inspector")
+                    .font(.largeTitle)
+            }
+        }
     }
 }
 
