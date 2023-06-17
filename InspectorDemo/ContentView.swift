@@ -66,6 +66,8 @@ struct Inspector: View {
             Text("My Inspector").font(.largeTitle)
             Spacer()
         }
+        // TODO: Why does this toolbar only appear on the first render?
+        // TODO: See https://developer.apple.com/forums/thread/732048.
         .toolbar { ButtonGroup() }
         .frame(maxWidth: .infinity)
         .background(.yellow.opacity(0.2))
