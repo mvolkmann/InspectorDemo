@@ -4,7 +4,7 @@ struct ContentView: View {
     @State private var showingInspector = false
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 Text("Main Content Goes Here!")
                     .font(.largeTitle)
@@ -22,20 +22,53 @@ struct ContentView: View {
                 Inspector()
                     .ignoresSafeArea(edges: [.bottom])
                     .presentationDetents([.medium])
+                    .presentationDragIndicator(.visible)
             }
         }
     }
 }
 
-struct Inspector: View {
+struct ButtonGroup: View {
     var body: some View {
-        ZStack {
-            Color.yellow.opacity(0.2)
-            VStack {
-                Text("My Inspector")
-                    .font(.largeTitle)
+        ControlGroup {
+            Button {
+                print("got cut tap")
+            } label: {
+                Label("Cut", systemImage: "scissors")
+            }
+            Button {
+                print("got copy tap")
+            } label: {
+                Label("Copy", systemImage: "doc.on.doc")
+            }
+            Button {
+                print("got paste tap")
+            } label: {
+                Label("Paste", systemImage: "doc.on.doc.fill")
+            }
+            Button {
+                print("got new tap")
+            } label: {
+                Label("New", systemImage: "plus.square.on.square")
             }
         }
+        // Styles include automatic, compactMenu,
+        // menu, navigation, and palette.
+        // This causes the ControlGroup to not appear!
+        // .controlGroupStyle(.compactMenu)
+    }
+}
+
+struct Inspector: View {
+    var body: some View {
+        VStack {
+            Spacer()
+            Text("My Inspector").font(.largeTitle)
+            Spacer()
+        }
+        .toolbar { ButtonGroup() }
+        .frame(maxWidth: .infinity)
+        .background(.yellow.opacity(0.2))
     }
 }
 
